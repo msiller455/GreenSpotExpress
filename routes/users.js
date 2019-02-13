@@ -1,15 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/users');
+const axios = require('axios')
 
-// USER SHOW ROUTE [LIST OF ALL Users]
+// Out Tonight ROUTE [LIST OF ALL Users Out Tonight]
 router.get('/', async (req, res, next) => {
   try {
-      const allUsers = await User.find()
-      console.log(allUsers)
+      const foundUsers = await User.find({outTonight: true})
+      console.log(foundUsers)
       res.json({
           status: 200,
-          data: allUsers
+          data: foundUsers
       })
   } catch (err){
       res.send(err)
@@ -31,17 +32,18 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // EDIT USER PAGE
-router.put('/:id', async (req, res) => {
-  console.log(req.params)
-  try {
-      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+router.put('/:id', (req, res) => {
+  // console.log(req.params)
+  console.log('this is the body', req.body)
+  axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=AIzaSyCzdgTlTndmIPFlvVcelpUoYWykNd7Qq4o`)
+    .then(async response => {
+      const longLat = response.data.results[0].geometry.location
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, {coordinates: longLat}, {new: true})
       res.json({
-          status: 200,
-          data: updatedUser
+        status: 200,
+        data: updatedUser
       })
-  } catch (err) {
-      res.send(err)
-  }
+    })
 })
 
 // DELETE User PAGE
