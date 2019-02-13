@@ -16,19 +16,6 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// CREATE NEW USER
-router.post('/', async (req, res) => {
-  try {
-    const createdUser = await User.create(req.body)
-    res.json({
-      status: 200,
-      data: createdUser
-    })
-  } catch(err) {
-    res.send(err)
-  }
-})
-
 // USER PROFILE 
 router.get('/:id', async (req, res, next) => {
   try {

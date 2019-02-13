@@ -4,7 +4,7 @@ const passport = require('passport')
 const authController = require('./authController')
 // Setting up the passport middleware for each of the OAuth providers
 // const twitterAuth = passport.authenticate('twitter')
-const googleAuth = passport.authenticate('google', { scope: ['profile'] })
+const googleAuth = passport.authenticate('google', { scope: ['profile', 'email'] })
 // const facebookAuth = passport.authenticate('facebook')
 // const githubAuth = passport.authenticate('github')
 

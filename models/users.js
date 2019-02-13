@@ -9,11 +9,11 @@ const userSchema = mongoose.Schema({
     vendor: Boolean,
     vendorName: String,
     location: String,
-    bio: String,
+    profilePic: String,
     image: String,
     schedule: [String],
     category: String,
-    phone: Number,
+    phone: String,
     website: String,
     googleId: String
 })

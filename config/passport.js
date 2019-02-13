@@ -11,16 +11,20 @@ module.exports = () => {
  // information.  Normally, you would save the user to the database here
  // in a callback that was customized for each provider.
  const callback = (accessToken, refreshToken, profile, cb) => {
+     console.log(profile)
     User.findOne({'googleId': profile.id}, (err, user) => {
        if(err) cb(err)
        if(user) {
          return cb(null, user)
        } else {
           const newUser = new User({
-             username: profile.username,
+             username: profile.displayName,
+             email: profile.emails[0].value,
+             googleId: profile.id
           })
           newUser.save(err => {
              if(err) return cb(err)
+             newUser.created = true
              return cb(null, newUser)
           })
        }
