@@ -33,6 +33,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const foundUser = await User.findById(req.params.id)
+    console.log(foundUser)
     res.json({
       status: 200,
       data: foundUser

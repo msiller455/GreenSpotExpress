@@ -76,8 +76,7 @@ if(!isProduction) {
 }
 
 app.use('/', authRouter);
-// app.use('/users', usersRouter);
-// app.use('/vendors', vendorsRouter)
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
