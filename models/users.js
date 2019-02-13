@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema({
     vendor: Boolean,
     vendorName: String,
     location: String,
+    bio: String,
     image: String,
     schedule: [String],
     category: String,
