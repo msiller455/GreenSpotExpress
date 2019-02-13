@@ -15,7 +15,8 @@ const userSchema = mongoose.Schema({
     category: String,
     phone: String,
     website: String,
-    googleId: String
+    googleId: String,
+    outTonight: Boolean
 })
 
 const User = mongoose.model('User', userSchema)
