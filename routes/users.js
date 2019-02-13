@@ -32,6 +32,7 @@ router.get('/:id', async (req, res, next) => {
 
 // EDIT USER PAGE
 router.put('/:id', async (req, res) => {
+  console.log(req.params)
   try {
       const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
       res.json({
