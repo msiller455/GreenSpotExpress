@@ -35,6 +35,7 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', (req, res) => {
   // console.log(req.params)
   console.log('this is the body', req.body)
+  try {
   axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=AIzaSyCzdgTlTndmIPFlvVcelpUoYWykNd7Qq4o`)
     .then(async response => {
       const longLat = response.data.results[0].geometry.location
@@ -44,6 +45,9 @@ router.put('/:id', (req, res) => {
         data: updatedUser
       })
     })
+  }catch(err) {
+    res.json(err)
+  }
 })
 
 // DELETE User PAGE
