@@ -39,7 +39,7 @@ router.put('/:id', (req, res) => {
   axios(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=AIzaSyCzdgTlTndmIPFlvVcelpUoYWykNd7Qq4o`)
     .then(async response => {
       const longLat = response.data.results[0].geometry.location
-      const updatedUser = await User.findByIdAndUpdate(req.params.id, {coordinates: longLat}, {new: true})
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, Object.assign(req.body, {coordinates: longLat}), {new: true})
       res.json({
         status: 200,
         data: updatedUser
