@@ -18,14 +18,14 @@ const addSocketIdtoSession = (req, res, next) => {
 
 // Routes that are triggered by the React client
 // router.get('/twitter', addSocketIdtoSession, twitterAuth)
-router.get('/google', addSocketIdtoSession, googleAuth)
+router.get('/', addSocketIdtoSession, googleAuth)
 // router.get('/facebook', addSocketIdtoSession, facebookAuth)
 // router.get('/github', addSocketIdtoSession, githubAuth)
 
 // Routes that are triggered by callbacks from OAuth providers once
 // the user has authenticated successfully
 // router.get('/twitter/callback', twitterAuth, authController.twitter)
-router.get('/google/callback', googleAuth, authController.google)
+router.get('/callback', googleAuth, authController.google)
 // router.get('/facebook/callback', facebookAuth, authController.facebook)
 // router.get('/github/callback', githubAuth, authController.github)
 

@@ -12,6 +12,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const errorHandler = require('errorhandler')
 const socketio = require('socket.io')
+const server = require('./bin/www')
 
 // Routes 
 const indexRouter = require('./routes/index');
@@ -22,8 +23,7 @@ const authRouter = require('./routes/auth')
 const app = express();
 
 // Create server for socket.io
-const server = require('http').Server(app)
-
+// const server = require('http').Server(app)
 
 
 //
@@ -60,13 +60,16 @@ app.use(passport.initialize());
 passportInit()
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000',
+  'https://greenspot3213.herokuapp.com/'
+],
   credentials: true,
   optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions))
 
 const io = socketio(server)
+app.io = io
 app.set('io', io)
 
 io.on("connection", (socket)=>{
@@ -79,10 +82,12 @@ if(!isProduction) {
   app.use(errorHandler())
 }
 
-app.use('/', authRouter);
+
+app.use('/google', authRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -95,9 +100,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
-server.listen(3030)
+
 
 module.exports = app;
