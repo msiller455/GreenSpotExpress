@@ -69,6 +69,10 @@ app.use(cors(corsOptions))
 const io = socketio(server)
 app.set('io', io)
 
+io.on("connection", (socket)=>{
+  io.emit("new-connection", {user: "hi"})
+})
+
 
 
 if(!isProduction) {
