@@ -72,6 +72,10 @@ const io = socketio(server)
 app.io = io
 app.set('io', io)
 
+io.on("connection", (socket)=>{
+  io.emit("new-connection", {user: "hi"})
+})
+
 
 
 if(!isProduction) {
