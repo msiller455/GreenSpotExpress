@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-
 var app = require('../app');
 var debug = require('debug')('project3express:server');
 var http = require('http');
@@ -20,6 +19,9 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+const io = app.io
+io.attach(server)
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -88,3 +90,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+module.exports.server = server
